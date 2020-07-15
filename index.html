@@ -7,7 +7,7 @@
 <body>
 
 
-<script src="./stack.js">
+<script>
   'use strict';
 
   /**
@@ -15,28 +15,37 @@
    */
 
   const range = {
-    from: 0,
-    to: 100,
+    start: 0,
+    end: 10,
+    get middle() {
+      return Math.ceil( (this.end - this.start) / 2 + this.start );
+    },
+    moveEnd() {
+      this.end = this.middle - 1;
+    },
+    moveStart() {
+      this.start = this.middle + 1;
+    }
   };
 
-  alert( `${range.from}...${range.to}` );
-
-  let n = Math.floor( range.to / 2 );
+  alert( `${range.start}...${range.end}` );
 
   while (true) {
-    if (confirm( `Is your number ${n}` )) {
+    if (confirm( `Is your number ${range.middle}` )) {
+
+      break;
+    }
+    if (confirm( `Is your number less than ${range.middle}` )) {
+      range.moveEnd();
+    } else {
+      range.moveStart();
+    }
+    if (range.start >= range.end) {
       break;
     }
 
-    if (confirm( `Is your number less than ${n}` )) {
-
-    } else {
-
-    }
-
   }
-
-  alert( n );
+  alert( `Your number is ${range.middle}` );
 
 </script>
 </body>

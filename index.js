@@ -12,6 +12,7 @@ console.table( arr );
 
 console.log( 'result = ', binarySearch( [0, 1, 2, 3, 4, 5], 10 ) );
 console.log( 'result = ', binarySearch( [0, 1, 2, 3, 4, 5], 0 ) );
+console.log( 'result = ', binarySearch( [0, 1, 2, 3, 4, 5], 1 ) );
 console.log( 'result = ', binarySearch( [0, 1, 2, 3, 4, 5], 5 ) );
 console.log( 'result = ', binarySearch( [0, 1, 2, 3, 4, 5], 3 ) );
 
@@ -35,28 +36,28 @@ function find(arr, value) {
 
 function binarySearch(arr, v) {
 
-  let from = 0;
-  let to = arr.length - 1;
+  let start = 0;
+  let end = arr.length - 1;
 
-  let currentIndex = Math.ceil( to / 2 );
+  let middle = Math.ceil( end / 2 );
 
   while (true) {
 
-    if (v > arr[currentIndex]) {
-      from = currentIndex;
+    if (v > arr[middle]) {
+      start = middle;
     } else {
-      to = to - from === 1
-           ? from
-           : currentIndex;
+      end = end - start === 1
+           ? start
+           : middle;
     }
 
-    currentIndex = Math.ceil( (to - from) / 2 + from );
+    middle = Math.ceil( (end - start) / 2 + start );
 
-    if (v === arr[currentIndex]) {
-      return currentIndex;
+    if (v === arr[middle]) {
+      return middle;
     }
 
-    if (from >= to) {
+    if (start >= end) {
       return -1;
     }
   }
