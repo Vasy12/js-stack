@@ -7,17 +7,36 @@
 <body>
 
 
-<script>
-  alert( '' );
-  let userN = 50;
+<script src="./stack.js">
+  'use strict';
+
+  /**
+   * User [0,100] // 61
+   */
+
+  const range = {
+    from: 0,
+    to: 100,
+  };
+
+  alert( `${range.from}...${range.to}` );
+
+  let n = Math.floor( range.to / 2 );
+
   while (true) {
-    if (window.confirm( `Is your number ${userN}` )) {
+    if (confirm( `Is your number ${n}` )) {
       break;
+    }
+
+    if (confirm( `Is your number less than ${n}` )) {
+
+    } else {
+
     }
 
   }
 
-  alert( userN );
+  alert( n );
 
 </script>
 </body>
