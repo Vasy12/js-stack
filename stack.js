@@ -47,13 +47,46 @@ class Stack {
 
 }
 
-const stack = new Stack( 10 );
+const str = prompt();
 
-stack.push( true );
-stack.push( {
-              name: 'Test',
-            } );
+const options = {
+  brackets: {
+    ')': '(',
+    '}': '{',
+    ']': '[',
+  }
+};
 
-stack.push( -78 );
+alert( checkCorrectBracketSequence( str )
+       ? 'TRUE'
+       : 'FALSE' );
 
+/**
+ *
+ * @param {string} str
+ * @param {object} [options]
+ * @param {object} options.brackets - description
+ * @returns {boolean}
+ */
+function checkCorrectBracketSequence(str, options = {
+  brackets: {
+    '(': ')',
+    '{': '}',
+    '[': ']',
+  }
+}) {
+  const bracketsStack = new Stack( str.length );
+  const brackets = options.brackets;
 
+  for (const s of str) {
+    if (brackets[s]) {
+      bracketsStack.push( s );
+      continue;
+    }
+    if (brackets[bracketsStack.pick()] === s) {
+      bracketsStack.pop();
+    }
+  }
+
+  return bracketsStack.isEmpty;
+}
