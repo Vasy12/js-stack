@@ -1,5 +1,29 @@
 'use strict';
 
+class StackIterator {
+  /**
+   *
+   * @param {Stack} stack
+   */
+  constructor(stack) {
+    this._stack = stack;
+    this._start = 0;
+  }
+
+  next() {
+    if (this._start >= this._stack.size) {
+      return {
+        value: undefined,
+        done: true,
+      };
+    }
+    return {
+      value: this._stack[`_${this._start}`],
+      done: this._start++ === this._stack.size,
+    };
+  }
+}
+
 /**
  * LIFO
  */
@@ -15,7 +39,7 @@ class Stack {
   }
 
   push(v) {
-    this[this._size++] = v;
+    this[`_${this._size++}`] = v;
     if (this._size > this._maxSize) {
       throw new RangeError( 'Stack overflow' );
     }
@@ -45,21 +69,20 @@ class Stack {
     return this.size === 0;
   }
 
+  [Symbol.iterator]() {
+    return new StackIterator( this );
+  }
+
 }
 
-const str = prompt();
+const stack = new Stack();
 
-const options = {
-  brackets: {
-    ')': '(',
-    '}': '{',
-    ']': '[',
-  }
-};
+for (let i = 0; i < 100; i++) {
+  stack.push( i * (Math.random() * 100) );
+}
 
-alert( checkCorrectBracketSequence( str )
-       ? 'TRUE'
-       : 'FALSE' );
+
+const arr = [...stack];
 
 /**
  *
